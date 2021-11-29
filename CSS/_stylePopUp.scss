@@ -1,0 +1,85 @@
+.listaInfo{
+    list-style: none;
+    height: max-content;
+    min-width: 200px;
+    max-width: 250px;
+    
+    li{
+        h3{
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            padding: 8px;
+        }
+    }
+
+    .listTitle{
+        text-align: left;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 4px 0;
+    }
+    .listData{
+        text-align: center;
+        text-transform: capitalize;
+        font-size: 1.1rem;
+        padding: 0 0 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .listBton{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0;
+        button{
+            width: 45%;
+            padding: 8px;
+            border:none;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .delete{
+            background-color: #e1425a;
+             
+        }
+        .mod{
+            background-color: #2ac56c;
+        }
+    }
+
+    
+}
+
+@media screen and(max-width:650px){
+
+    .listaInfo{
+       min-width: 150px;
+       max-width: 200px;
+
+       li{
+            h3{
+                font-size: 1.1rem;
+                padding: 8px 0 0 0;
+            }
+        }
+
+        .listTitle{
+            
+            font-size: 0.8rem;
+        }
+
+        .listData{
+            padding: 0 0 4px 0;
+            font-size: 0.8rem;
+        }
+        .listBton{
+            
+            button{
+               font-size: 0.9rem;
+            }
+        }
+    }
+}

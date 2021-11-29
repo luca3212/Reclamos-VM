@@ -1,0 +1,104 @@
+@import "stylemap";
+@import "styleContForm";
+@import "stylePopUp";
+
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+:root{
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+.contenedorGral{
+    height: 100%;
+    width: 100%;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .contenido{
+        height: 100%;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: row;
+
+    }
+
+}
+
+
+.ContForm{
+    width: 30%;
+    height: 100%;
+
+}
+.ContMap{
+    width: 70%;
+    height: 100%;
+
+}
+
+//marcador ubicacion user
+.my-div-icon{
+   // background-color: #fff700;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+//obras Sanitarias
+.naranja{
+    background-color: #ff6347;
+}
+
+//Obras publicas
+.verde{
+    background-color: #2cc52a;
+}
+
+//defensa civil
+.amarillo{
+    background-color: #ffff00;
+}
+
+i {
+	width: 18px;
+    height: 18px;
+	border-radius: 5px;
+	float: right;
+	margin-left: 5px;
+    border: 2px solid black;
+}
+
+
+@media screen and(max-width:650px){
+    .contenedorGral{
+        .contenido{
+            flex-direction: column;
+        }
+    
+    }
+
+    .ContForm{
+        width: 100%;
+        height: max-content;
+    }
+    .ContMap{
+        width: 100%;
+        min-height: 500px;
+      
+    }
+
+}

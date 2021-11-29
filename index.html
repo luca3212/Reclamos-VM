@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclamos - VM</title>
+
+    
+    <!--Mapa-->
+	<script src="https://d19vzq90twjlae.cloudfront.net/leaflet/v0.7.7/leaflet-src.js"></script>
+	<link href="https://d19vzq90twjlae.cloudfront.net/leaflet/v0.7.7/leaflet.css" rel='stylesheet' />
+
+    <link rel="stylesheet" href="CSS/stylePrincipal.css" /> 
+</head>
+<body>
+
+    <div class="contenedorGral">
+        <div class="contenido">
+            <div class="ContForm">
+                <h2>MENÚ</h2>
+                <!--Formulario iniciar reclamo-->
+                <div class="accordion-container" >
+                    <div class="titulo" id="accordion_ingreso">
+                        <a href="#" class="accordion-titulo" >Iniciar Reclamo</a>
+                        <span class="toggle-icon"></span>
+					</div>
+                    <div class="accordion-content">
+                        <form id="" action="">
+                            <ul>
+                                <li><label for="F_LAT">Latitud:</label></li>
+                                <li><input type="text" id="F_LAT" name="F_LAT" readonly></li>
+                                <li><label for="F_LON">Longitud:</label></li>
+                                <li><input type="text" id="F_LON" name="F_LON" readonly></li>
+                                <li><label for="F_DESC">Descripcion de problema:</label></li>
+                                <li><textarea id="F_DESC" name="F_DESC" rows="3" cols="22" maxlength="70"></textarea></li>
+                                <li><label for="F_TIPO">Area Encargada:</label></li>
+                                <li>
+                                    <select  name="F_TIPO" id="F_TIPO">
+                                        <option value="">---</option>
+                                        <option value="Obras Sanitarias">OBRAS SANITARIAS (PERDIDAS DE AGUA, CLOACAS, ETC.)</option>
+                                        <option value="Defensa Civil">DEFENSA CIVIL (CAIDA DE ARBOLES, POSTES ETC.)</option>
+                                        <option value="Obras Publicas">OBRAS PUBLICAS (ROTURA DE ASFALTO, ESCOMBROS, ETC.)</option>
+                                    </select>
+                                </li>
+                                <li><label for="F_FECHA">Fecha de inicio:</label></li>
+                                <li><input type="date" id="F_FECHA" name="F_FECHA" ></li>
+                                <li> <button type="button" class="button1" id="button_enviar" onclick="gedData()" >Enviar</button></li>
+                            </ul>
+                        </form>
+                    </div>	
+                </div>
+
+                <!--Formulario modificar reclamo-->
+                <div class="accordion-container">
+                    <div class="titulo" id="accordion_modificar">
+                        <a href="#" class="accordion-titulo">Modificar Reclamo</a>
+                        <span class="toggle-icon"></span>
+                    </div>
+                    <div class="accordion-content">
+                        <form id="idFormModificacion" action="">
+                            <ul>
+                                <li><label for="F_ID">Id Reclamo:</label></li>
+                                <li><input type="text" id="F_ID_MOD" name="F_ID" readonly></li>
+
+                                <li><label for="F_DESC">Descripcion de problema:</label></li>
+                                <li><textarea id="F_DESC_MOD" name="F_DESC" rows="3" cols="22" maxlength="70"></textarea></li>
+                                <li><label for="F_TIPO">Area Encargada:</label></li>
+                                <li>
+                                    <select  name="F_TIPO" id="F_TIPO_MOD">
+                                        <option value="">---</option>
+                                        <option value="Obras Sanitarias">OBRAS SANITARIAS (PERDIDAS DE AGUA, CLOACAS, ETC.)</option>
+                                        <option value="Defensa Civil">DEFENSA CIVIL (CAIDA DE ARBOLES, POSTES ETC.)</option>
+                                        <option value="Obras Publicas">OBRAS PUBLICAS (ROTURA DE ASFALTO, ESCOMBROS, ETC.)</option>
+                                    </select>
+                                </li>
+                                <li><label for="F_FECHA">Fecha de inicio:</label></li>
+                                <li><input type="date" id="F_FECHA_MOD" name="F_FECHA" ></li>
+                                <li><label for="F_ESTADO">Estado:</label></li>
+                                <li>
+                                    <select  name="F_ESTADO_MOD" id="F_ESTADO_MOD">
+                                        <option value="en espera">En espera</option>
+                                        <option value="en reparación">En reparación</option>
+                                    </select>
+                                </li>
+								<li> <button type="button" class="button1" id="btnCambio" >Guardar Cambios</button></li>
+                            </ul>
+                        </form>
+                    </div>	
+                </div>
+            </div>
+
+            <div class="ContMap">
+                <!-- MAPA -->
+				<div class='leaflet-container leaflet-fade-anim'  id='map'></div>
+            </div>
+        </div>
+    </div>
+  
+    
+    <script src="JS/app.js"></script>
+    <script src="JS/map.js"></script>
+    <script type="text/javascript" src="JS/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="JS/formADD.js"></script>
+    
+    <script>
+        //controla el menu lateral
+        $(".titulo").click(function(){
+            //cierro todos los acordiones abiertos en este momento
+            cerrarAcordion();
+
+            var contenido=$(this).next(".accordion-content");
+
+            var nombre_id = this.id;
+           
+            if(contenido.css("display")=="none"){ //open
+                if(nombre_id == "accordion_ingreso"){
+                    contenido.slideDown(500);			
+                    $(this).addClass("open");
+                    ADD();	
+                }else{
+                    alert("Seleccione el marcador..");
+                }		
+            }else{ //close
+                if(nombre_id == "accordion_ingreso"){
+                    //limpiamos el formulario
+                    cerrar_form();
+                }		
+                contenido.slideUp(250);
+                $(this).removeClass("open");	
+            }
+                                    
+        });
+
+        //cierre total del menu lateral
+        function cerrarAcordion() {
+            $(".accordion-content").slideUp(250);
+            $(".titulo").removeClass("open");
+        }
+	</script>
+</body>
+</html>
